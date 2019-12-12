@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # Add your own routes here, or remove this file if you don't have need for it.
+  (TestController.public_instance_methods - ApplicationController.public_instance_methods).sort.each do |action|
+    get   "test/#{action}", to: "test##{action}"
+    post  "test/#{action}", to: "test##{action}"
+    patch "test/#{action}", to: "test##{action}"
+  end
 end

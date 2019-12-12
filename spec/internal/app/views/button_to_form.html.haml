@@ -1,0 +1,22 @@
+= form_tag '/test/button_to_form?form=main_form' do
+  %fieldset
+    %legend Main form
+    %div= text_field_tag :main_form_something, '', placeholder: 'Something'
+    = fields_for :user do |f|
+      %div= f.text_field :name, placeholder: 'Name'
+      %div= f.submit
+
+  %fieldset
+    %legend Move
+    %div
+      To:
+      = text_field_tag :destination, params[:move_to], form: 'move_form', placeholder: 'Destination'
+    = button_to_form 'Move',
+      '/test/button_to_form?form=move_form',
+      {name: 'move_button', class: 'btn'},
+      {id: :move_form}
+
+  = button_to_form 'Delete',
+    '/test/button_to_form?form=delete_form',
+    {class: 'btn'} do
+    = hidden_field_tag :delete_form_something, 'something'
