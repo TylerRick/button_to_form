@@ -18,6 +18,9 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  #config.include Capybara::RSpecMatchers
-  #config.include Capybara::DSL
+  # Combustion is supposed to include these for us but Capybara::RSpecMatchers isn't defined when it checks for it
+  config.include Capybara::RSpecMatchers
+  config.include Capybara::DSL
 end
+
+Capybara.server = :webrick
