@@ -2,9 +2,10 @@ require "bundler/setup"
 require "button_to_form"
 
 Bundler.require :default, :development
-require 'capybara/rails'
+require 'capybara/dsl'
 Combustion.initialize! :action_controller, :action_view
 require 'rspec/rails'
+require 'capybara/rails'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -16,4 +17,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  #config.include Capybara::RSpecMatchers
+  #config.include Capybara::DSL
 end

@@ -1,5 +1,4 @@
 RSpec.describe 'button_to_form / nested forms', js: false do
-  include Capybara
   it 'main form' do
     visit '/test/button_to_form'
     click_button 'Save User'
