@@ -1,4 +1,8 @@
 module ButtonToFormHelper
+  class << self
+    attr_accessor :content_for_name
+  end
+  self.content_for_name = :footer
 
   # The [button_to](https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to)
   # provided by rails doesn't work when used inside of a form tag, because it adds a new <form> and
@@ -37,14 +41,17 @@ module ButtonToFormHelper
   #     {method: 'delete'}
   #     = hidden_field_tag :some_id, some_id
   #
-  #
   def button_to_form(button_text, url, button_options, form_options = {}, &block)
     form_options[:id] ||= "form-#{SecureRandom.uuid}"
-    content_for(:footer) do
+    content_for(ButtonToFormHelper.content_for_name) do
+      # @button_to_form_rendered_content_for_name = true
+      # controller.instance_variable_set '@button_to_form_rendered_content_for_name', true
       form_tag(url, **form_options) do
         block.call if block
       end
     end
+    # @button_to_form_needs_to_render_content_for_name = true
+    # controller.instance_variable_set '@button_to_form_needs_to_render_content_for_name', true
 
     button_tag(button_text, **button_options, type: 'submit', form: form_options[:id])
   end
