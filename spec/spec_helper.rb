@@ -2,9 +2,9 @@ require "bundler/setup"
 require "button_to_form"
 
 Bundler.require :default, :development
+require 'capybara/rails'
 Combustion.initialize! :action_controller, :action_view
 require 'rspec/rails'
-require 'capybara/rails'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
