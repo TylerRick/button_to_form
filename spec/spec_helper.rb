@@ -16,11 +16,13 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+    # Prevent diffs from being elided/truncated
+    c.max_formatted_output_length = nil
   end
 
-  # Combustion is supposed to include these for us but Capybara::RSpecMatchers isn't defined when it checks for it
-  config.include Capybara::RSpecMatchers
-  config.include Capybara::DSL
+  config.order = :random
+
+  config.infer_spec_type_from_file_location!
 end
 
 Capybara.server = :webrick

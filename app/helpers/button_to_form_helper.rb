@@ -41,19 +41,25 @@ module ButtonToFormHelper
   #     {method: 'delete'}
   #     = hidden_field_tag :some_id, some_id
   #
-  def button_to_form(button_text, url, button_options, form_options = {}, &block)
+  # If you call button_to_form with the same form id, it will render the button but will _not_
+  # render another form with the same id since it doesn't make sense to have multiple forms with the
+  # same id. Instead it will assume you want another form that reuses (gets associated with) the
+  # *existing* form with that id.
+  #
+  def button_to_form(button_text, url, button_options = {}, form_options = {}, &block)
     form_options[:id] ||= "form-#{SecureRandom.uuid}"
-    content_for(ButtonToFormHelper.content_for_name) do
-      # @button_to_form_rendered_content_for_name = true
-      # controller.instance_variable_set '@button_to_form_rendered_content_for_name', true
-      form_tag(url, **form_options) do
-        block.call if block
+    @button_to_form_ids ||= []
+    @button_to_form_id = form_options[:id]
+    unless @button_to_form_ids.include?(@button_to_form_id)
+      content_for(ButtonToFormHelper.content_for_name) do
+        form_tag(url, **form_options) do
+          block.call if block
+        end
       end
     end
-    # @button_to_form_needs_to_render_content_for_name = true
-    # controller.instance_variable_set '@button_to_form_needs_to_render_content_for_name', true
+    @button_to_form_ids << @button_to_form_id
 
-    button_tag(button_text, **button_options, type: 'submit', form: form_options[:id])
+    button_tag(button_text, **button_options, type: 'submit', form: @button_to_form_id)
   end
 
 end

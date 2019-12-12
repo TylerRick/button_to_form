@@ -1,7 +1,7 @@
 # `button_to_form`
 
 [![Gem Version](https://badge.fury.io/rb/button_to_form.svg)](https://badge.fury.io/rb/button_to_form)
-[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](https://rdoc.info/github/TylerRick/button_to_form/master)
+[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](https://rdoc.info/github/TylerRick/button_to_form/)
 
 ## Motivation
 
